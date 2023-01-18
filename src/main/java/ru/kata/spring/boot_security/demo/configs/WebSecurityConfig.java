@@ -11,14 +11,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.kata.spring.boot_security.demo.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
     private final UserDetailsService userService;
-    public WebSecurityConfig(UserDetailsServiceImpl userService) {
+    private final SuccessUserHandler loginSuccessHandler;
+    public WebSecurityConfig(UserDetailsService userService, SuccessUserHandler loginSuccessHandler) {
         this.userService = userService;
+        this.loginSuccessHandler = loginSuccessHandler;
     }
 
     @Autowired
@@ -56,7 +57,7 @@ public class WebSecurityConfig {
 
     @Bean
     protected PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
+        return new BCryptPasswordEncoder();
     }
 
 
@@ -65,5 +66,9 @@ public class WebSecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(userService);
         return provider;
+    }
+
+    public SuccessUserHandler getLoginSuccessHandler() {
+        return loginSuccessHandler;
     }
 }

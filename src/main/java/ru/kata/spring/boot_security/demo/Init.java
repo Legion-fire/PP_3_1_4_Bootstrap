@@ -39,9 +39,9 @@ public class Init {
         setRole.add(admin);
         userSet.add(user);
         User newAdmin = new User("Михаил", "Янаров", 28,
-                "Legion-fire@yandex.ru", "$2a$12$nNj251hCDwafhk/uGw2Wtehm7whW7QWOx6rdmxLKliLl5X8QbUSC.", setRole);
+                "Legion-fire@yandex.ru", "admin", setRole);
         User newUser = new User("Григорий", "Аквинский", 27,
-                    "Legion-night@yandex.ru", "$2a$12$nNj251hCDwafhk/uGw2Wtehm7whW7QWOx6rdmxLKliLl5X8QbUSC.", userSet);
+                    "Legion-night@yandex.ru", "user", userSet);
         userService.save(newAdmin);
         userService.save(newUser);
         }
